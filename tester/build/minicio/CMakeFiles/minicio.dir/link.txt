@@ -1,0 +1,2 @@
+/usr/bin/ar qc libminicio.a CMakeFiles/minicio.dir/minicio.c.o
+/usr/bin/ranlib libminicio.a
