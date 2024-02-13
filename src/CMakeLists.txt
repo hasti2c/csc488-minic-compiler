@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-add_library(ast ASTChecker.cpp ASTChecker.h GrammarStatVisitor.cpp GrammarStatVisitor.h ASTChecker.h ASTNode.h Program.h Declarations.h Statements.h Exprs.h Terms.h ASTVisitor.h ASTVisitor.cpp Exprs.cpp ASTBuilder.cpp ASTBuilder.h ASTPrinter.h Types.h ASTNode.cpp VerifyAndBuildSymbols.h VerifyAndBuildSymbols.cpp SymbolTable.h A3Helper.cpp A3Helper.h) # TODO: okay?
+add_library(ast ASTChecker.cpp ASTChecker.h GrammarStatVisitor.cpp GrammarStatVisitor.h ASTChecker.h ASTNode.h Program.h Declarations.h Statements.h Exprs.h Terms.h ASTVisitor.h ASTVisitor.cpp Exprs.cpp ASTBuilder.cpp ASTBuilder.h ASTPrinter.h Types.h ASTNode.cpp VerifyAndBuildSymbols.h VerifyAndBuildSymbols.cpp SymbolTable.h)
 
 add_library(irgen IRGenerator.cpp IRGenerator.h ASTVisitor.h Exprs.h Statements.h Terms.h Program.h Declarations.h ASTNode.h SymbolTable.h)
 

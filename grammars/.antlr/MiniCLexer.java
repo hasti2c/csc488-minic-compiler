@@ -1,4 +1,4 @@
-// Generated from /Users/hasti/Documents/UofT/csc488/assignments/code/grammars/MiniC.g4 by ANTLR 4.13.1
+// Generated from /home/ubuntu/Documents/csc488/assignments/code/grammars/MiniC.g4 by ANTLR 4.13.1
 
 #include <vector>
 #include "Program.h"
@@ -6,7 +6,6 @@
 #include "Statements.h"
 #include "Exprs.h"
 #include "Terms.h"
-#include "A3Helper.h" // TODO: okay?
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -101,6 +100,33 @@ public class MiniCLexer extends Lexer {
 	public Vocabulary getVocabulary() {
 		return VOCABULARY;
 	}
+
+
+	    void link(ASTNode* parent, ASTNode* child) {
+	        parent->addChild(child);
+	        if (child != NULL)
+	            child->setParent(parent);
+	    }
+
+	    void link(ASTNode* parent, std::vector<ASTNode*>::iterator start, std::vector<ASTNode*>::iterator end) {
+	        for (auto iter = start; iter != end; iter++)
+	            link(parent, *iter);
+	    }
+
+	    UnaryExpr* createUnaryExpr(std::string op, Expr *expr) {
+	        UnaryExpr *node = new UnaryExpr();
+	        node->setOpcode(Expr::opcodeFromString(op));
+	        link(node, expr);
+	        return node;
+	    }
+
+	    BinaryExpr* createBinaryExpr(std::string op, Expr *e1, Expr *e2) {
+	        BinaryExpr *node = new BinaryExpr();
+	        node->setOpcode(Expr::opcodeFromString(op));
+	        link(node, e1);
+	        link(node, e2);
+	        return node;
+	    }
 
 
 	public MiniCLexer(CharStream input) {
