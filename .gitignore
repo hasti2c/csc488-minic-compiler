@@ -1,2 +1,4 @@
-build*
-tester/build*
+build
+build/*
+tester/build
+tester/build/*

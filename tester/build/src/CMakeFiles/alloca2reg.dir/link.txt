@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -shared  -o liballoca2reg.so CMakeFiles/alloca2reg.dir/Alloca2Reg.cpp.o 

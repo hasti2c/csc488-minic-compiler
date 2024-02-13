@@ -1,2 +1,0 @@
-/usr/bin/ar qc libast.a CMakeFiles/ast.dir/ASTChecker.cpp.o CMakeFiles/ast.dir/GrammarStatVisitor.cpp.o CMakeFiles/ast.dir/ASTVisitor.cpp.o CMakeFiles/ast.dir/Exprs.cpp.o CMakeFiles/ast.dir/ASTBuilder.cpp.o CMakeFiles/ast.dir/ASTNode.cpp.o CMakeFiles/ast.dir/VerifyAndBuildSymbols.cpp.o
-/usr/bin/ranlib libast.a
