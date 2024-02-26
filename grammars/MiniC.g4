@@ -15,8 +15,8 @@ grammar MiniC;
             child->setParent(parent);
     }
 
-    void link(ASTNode* parent, std::vector<ASTNode*>::iterator start, std::vector<ASTNode*>::iterator end) {
-        for (auto iter = start; iter != end; iter++)
+    void link(ASTNode* parent, std::vector<ASTNode*> children) {
+        for (auto iter = children.begin(); iter != children.end(); iter++)
             link(parent, *iter);
     }
 
@@ -42,7 +42,7 @@ prog returns [minicc::Program *val]
 @init {$val = new Program();}
 : preamble decl {
     $val->setSyslibFlag($preamble.flag);
-    link($val, $decl.nodes.begin(), $decl.nodes.end());
+    link($val, $decl.nodes);
     $val->setSrcLoc($ctx->start->getLine(), $ctx->start->getCharPositionInLine());
 }
 ;
@@ -56,7 +56,7 @@ decl returns [std::vector<ASTNode*> nodes]
     FuncDeclaration *node = new FuncDeclaration();
     link(node, $rettype.node);
     link(node, $funcname.node);
-    link(node, $parameters.nodes.begin(), $parameters.nodes.end());
+    link(node, $parameters.nodes);
     link(node, $scope.node);
     node->setHasBody(true);
     node->setSrcLoc($ctx->start->getLine(), $ctx->start->getCharPositionInLine());
@@ -66,7 +66,7 @@ decl returns [std::vector<ASTNode*> nodes]
     FuncDeclaration *node = new FuncDeclaration();
     link(node, $rettype.node);
     link(node, $funcname.node);
-    link(node, $parameters.nodes.begin(), $parameters.nodes.end());
+    link(node, $parameters.nodes);
     node->setSrcLoc($ctx->start->getLine(), $ctx->start->getCharPositionInLine());
     $nodes.push_back(node);
 }
@@ -79,7 +79,7 @@ vardecl returns [std::vector<ASTNode*> nodes]
 : vartype varlist ';' {
     VarDeclaration *node = new VarDeclaration();
     link(node, $vartype.node);
-    link(node, $varlist.nodes.begin(), $varlist.nodes.end());
+    link(node, $varlist.nodes);
     node->setSrcLoc($ctx->start->getLine(), $ctx->start->getCharPositionInLine());
     $nodes.push_back(node);
 }
@@ -96,10 +96,10 @@ scope returns [ScopeStatement *node]
 }
 : '{' vardecl stmtlist '}' {
     $node->setNumVarDecl($vardecl.nodes.size());
-    link($node, $vardecl.nodes.begin(), $vardecl.nodes.end());
-    link($node, $stmtlist.nodes.begin(), $stmtlist.nodes.end());
+    link($node, $vardecl.nodes);
+    link($node, $stmtlist.nodes);
 }
-| '{' stmtlist '}' {link($node, $stmtlist.nodes.begin(), $stmtlist.nodes.end());}
+| '{' stmtlist '}' {link($node, $stmtlist.nodes);}
 | '{' '}'
     ;
 stmtlist returns [std::vector<ASTNode*> nodes]
@@ -272,7 +272,7 @@ expr returns [Expr *node]
 | funcname '(' arguments ')' {
     $node = new CallExpr();
     link($node, $funcname.node);
-    link($node, $arguments.nodes.begin(), $arguments.nodes.end());
+    link($node, $arguments.nodes);
     $node->setSrcLoc($ctx->start->getLine(), $ctx->start->getCharPositionInLine());
 }
 | parametername {

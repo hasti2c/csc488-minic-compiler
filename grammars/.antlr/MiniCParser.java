@@ -1,4 +1,4 @@
-// Generated from /home/ubuntu/Documents/csc488/assignments/code/grammars/MiniC.g4 by ANTLR 4.13.1
+// Generated from /home/ubuntu/Documents/csc488/assignments/minic/grammars/MiniC.g4 by ANTLR 4.13.1
 
 #include <vector>
 #include "Program.h"
@@ -118,8 +118,8 @@ public class MiniCParser extends Parser {
 	            child->setParent(parent);
 	    }
 
-	    void link(ASTNode* parent, std::vector<ASTNode*>::iterator start, std::vector<ASTNode*>::iterator end) {
-	        for (auto iter = start; iter != end; iter++)
+	    void link(ASTNode* parent, std::vector<ASTNode*> children) {
+	        for (auto iter = children.begin(); iter != children.end(); iter++)
 	            link(parent, *iter);
 	    }
 
@@ -173,7 +173,7 @@ public class MiniCParser extends Parser {
 			((ProgContext)_localctx).decl = decl(0);
 
 			    _localctx.val->setSyslibFlag(((ProgContext)_localctx).preamble.flag);
-			    link(_localctx.val, ((ProgContext)_localctx).decl.nodes.begin(), ((ProgContext)_localctx).decl.nodes.end());
+			    link(_localctx.val, ((ProgContext)_localctx).decl.nodes);
 			    _localctx.val->setSrcLoc(_localctx->start->getLine(), _localctx->start->getCharPositionInLine());
 
 			}
@@ -319,7 +319,7 @@ public class MiniCParser extends Parser {
 				    FuncDeclaration *node = new FuncDeclaration();
 				    link(node, ((DeclContext)_localctx).rettype.node);
 				    link(node, ((DeclContext)_localctx).funcname.node);
-				    link(node, ((DeclContext)_localctx).parameters.nodes.begin(), ((DeclContext)_localctx).parameters.nodes.end());
+				    link(node, ((DeclContext)_localctx).parameters.nodes);
 				    link(node, ((DeclContext)_localctx).scope.node);
 				    node->setHasBody(true);
 				    node->setSrcLoc(_localctx->start->getLine(), _localctx->start->getCharPositionInLine());
@@ -345,7 +345,7 @@ public class MiniCParser extends Parser {
 				    FuncDeclaration *node = new FuncDeclaration();
 				    link(node, ((DeclContext)_localctx).rettype.node);
 				    link(node, ((DeclContext)_localctx).funcname.node);
-				    link(node, ((DeclContext)_localctx).parameters.nodes.begin(), ((DeclContext)_localctx).parameters.nodes.end());
+				    link(node, ((DeclContext)_localctx).parameters.nodes);
 				    node->setSrcLoc(_localctx->start->getLine(), _localctx->start->getCharPositionInLine());
 				    _localctx.nodes.push_back(node);
 
@@ -443,7 +443,7 @@ public class MiniCParser extends Parser {
 
 			    VarDeclaration *node = new VarDeclaration();
 			    link(node, ((VardeclContext)_localctx).vartype.node);
-			    link(node, ((VardeclContext)_localctx).varlist.nodes.begin(), ((VardeclContext)_localctx).varlist.nodes.end());
+			    link(node, ((VardeclContext)_localctx).varlist.nodes);
 			    node->setSrcLoc(_localctx->start->getLine(), _localctx->start->getCharPositionInLine());
 			    _localctx.nodes.push_back(node);
 
@@ -530,8 +530,8 @@ public class MiniCParser extends Parser {
 				match(T__6);
 
 				    _localctx.node->setNumVarDecl(((ScopeContext)_localctx).vardecl.nodes.size());
-				    link(_localctx.node, ((ScopeContext)_localctx).vardecl.nodes.begin(), ((ScopeContext)_localctx).vardecl.nodes.end());
-				    link(_localctx.node, ((ScopeContext)_localctx).stmtlist.nodes.begin(), ((ScopeContext)_localctx).stmtlist.nodes.end());
+				    link(_localctx.node, ((ScopeContext)_localctx).vardecl.nodes);
+				    link(_localctx.node, ((ScopeContext)_localctx).stmtlist.nodes);
 
 				}
 				break;
@@ -544,7 +544,7 @@ public class MiniCParser extends Parser {
 				((ScopeContext)_localctx).stmtlist = stmtlist();
 				setState(110);
 				match(T__6);
-				link(_localctx.node, ((ScopeContext)_localctx).stmtlist.nodes.begin(), ((ScopeContext)_localctx).stmtlist.nodes.end());
+				link(_localctx.node, ((ScopeContext)_localctx).stmtlist.nodes);
 				}
 				break;
 			case 3:
@@ -1491,7 +1491,7 @@ public class MiniCParser extends Parser {
 
 				    ((ExprContext)_localctx).node =  new CallExpr();
 				    link(_localctx.node, ((ExprContext)_localctx).funcname.node);
-				    link(_localctx.node, ((ExprContext)_localctx).arguments.nodes.begin(), ((ExprContext)_localctx).arguments.nodes.end());
+				    link(_localctx.node, ((ExprContext)_localctx).arguments.nodes);
 				    _localctx.node->setSrcLoc(_localctx->start->getLine(), _localctx->start->getCharPositionInLine());
 
 				}

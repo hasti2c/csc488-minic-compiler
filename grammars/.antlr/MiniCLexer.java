@@ -1,4 +1,4 @@
-// Generated from /home/ubuntu/Documents/csc488/assignments/code/grammars/MiniC.g4 by ANTLR 4.13.1
+// Generated from /home/ubuntu/Documents/csc488/assignments/minic/grammars/MiniC.g4 by ANTLR 4.13.1
 
 #include <vector>
 #include "Program.h"
@@ -108,8 +108,8 @@ public class MiniCLexer extends Lexer {
 	            child->setParent(parent);
 	    }
 
-	    void link(ASTNode* parent, std::vector<ASTNode*>::iterator start, std::vector<ASTNode*>::iterator end) {
-	        for (auto iter = start; iter != end; iter++)
+	    void link(ASTNode* parent, std::vector<ASTNode*> children) {
+	        for (auto iter = children.begin(); iter != children.end(); iter++)
 	            link(parent, *iter);
 	    }
 

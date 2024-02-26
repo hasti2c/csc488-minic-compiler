@@ -3,7 +3,7 @@
 #include "minicio.h"
 
 bool isTen(int a) {
-    if (a != 10)
+    if (a != 10) 
         return false;
     return true;
 }
