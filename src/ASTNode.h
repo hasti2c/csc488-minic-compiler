@@ -106,6 +106,18 @@ namespace minicc {
         //The function returns variable symbol table which contains variable "name"
         VarSymbolTable *locateDeclaringTableForVar(const std::string &name) {
             //start your code here
+            ASTNode* now = getParentScope();
+            while (now != nullptr) {
+                if (now->scopeVarTable()->contains(name))
+                    return now->scopeVarTable();
+
+                if (now->isProgram())
+                    break;
+                if (now->getParentScope() != nullptr)
+                    now = now->getParentScope();
+                else
+                    now = (ASTNode*) now->root();
+            }
             return nullptr;
         }
 

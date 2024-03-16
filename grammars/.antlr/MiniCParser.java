@@ -896,7 +896,7 @@ public class MiniCParser extends Parser {
 
 				    VarReference *node = new VarReference();
 				    link(node, ((VarlistContext)_localctx).varname.node);
-				    IntLiteralExpr *expr = new IntLiteralExpr(stoi((((VarlistContext)_localctx).INT!=null?((VarlistContext)_localctx).INT.getText():null)));
+				    ConstantLiteralExpr *expr = IntLiteralExpr::fromString((((VarlistContext)_localctx).INT!=null?((VarlistContext)_localctx).INT.getText():null));
 				    expr->setSrcLoc(_localctx->start->getLine(), _localctx->start->getCharPositionInLine());
 				    link(node, expr);
 				    node->setSrcLoc(_localctx->start->getLine(), _localctx->start->getCharPositionInLine());
@@ -1300,7 +1300,7 @@ public class MiniCParser extends Parser {
 			case T__4:
 				enterOuterAlt(_localctx, 2);
 				{
-				((ExproptContext)_localctx).node =  NULL;
+				((ExproptContext)_localctx).node =  nullptr;
 				}
 				break;
 			default:
@@ -1381,7 +1381,7 @@ public class MiniCParser extends Parser {
 				setState(244);
 				((ExprContext)_localctx).INT = match(INT);
 
-				    ((ExprContext)_localctx).node =  new IntLiteralExpr(stoi((((ExprContext)_localctx).INT!=null?((ExprContext)_localctx).INT.getText():null)));
+				    ((ExprContext)_localctx).node =  IntLiteralExpr::fromString((((ExprContext)_localctx).INT!=null?((ExprContext)_localctx).INT.getText():null));
 				    _localctx.node->setSrcLoc(_localctx->start->getLine(), _localctx->start->getCharPositionInLine());
 
 				}
@@ -1391,7 +1391,7 @@ public class MiniCParser extends Parser {
 				setState(246);
 				((ExprContext)_localctx).CHAR = match(CHAR);
 
-				    ((ExprContext)_localctx).node =  new CharLiteralExpr((((ExprContext)_localctx).CHAR!=null?((ExprContext)_localctx).CHAR.getText():null)[1]);
+				    ((ExprContext)_localctx).node =  CharLiteralExpr::fromString((((ExprContext)_localctx).CHAR!=null?((ExprContext)_localctx).CHAR.getText():null));
 				    _localctx.node->setSrcLoc(_localctx->start->getLine(), _localctx->start->getCharPositionInLine());
 
 				}
@@ -1401,7 +1401,7 @@ public class MiniCParser extends Parser {
 				setState(248);
 				match(T__20);
 
-				    ((ExprContext)_localctx).node =  new BoolLiteralExpr(true);
+				    ((ExprContext)_localctx).node =  BoolLiteralExpr::fromString("true");
 				    _localctx.node->setSrcLoc(_localctx->start->getLine(), _localctx->start->getCharPositionInLine());
 
 				}
@@ -1411,7 +1411,7 @@ public class MiniCParser extends Parser {
 				setState(250);
 				match(T__21);
 
-				    ((ExprContext)_localctx).node =  new BoolLiteralExpr(false);
+				    ((ExprContext)_localctx).node =  BoolLiteralExpr::fromString("false");
 				    _localctx.node->setSrcLoc(_localctx->start->getLine(), _localctx->start->getCharPositionInLine());
 
 				}

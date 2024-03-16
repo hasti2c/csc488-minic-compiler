@@ -161,7 +161,7 @@ varlist returns [std::vector<ASTNode*> nodes]
 | varname '[' INT ']' {
     VarReference *node = new VarReference();
     link(node, $varname.node);
-    IntLiteralExpr *expr = new IntLiteralExpr(stoi($INT.text));
+    ConstantLiteralExpr *expr = IntLiteralExpr::fromString($INT.text);
     expr->setSrcLoc($ctx->start->getLine(), $ctx->start->getCharPositionInLine());
     link(node, expr);
     node->setSrcLoc($ctx->start->getLine(), $ctx->start->getCharPositionInLine());
@@ -210,23 +210,23 @@ parameterentry
     ;
 expropt returns [Expr *node]
 : expr {$node = $expr.node;}
-| {$node = NULL;}
+| {$node = nullptr;}
     ;
 expr returns [Expr *node]
 : INT {
-    $node = new IntLiteralExpr(stoi($INT.text));
+    $node = IntLiteralExpr::fromString($INT.text);
     $node->setSrcLoc($ctx->start->getLine(), $ctx->start->getCharPositionInLine());
 }
 | CHAR {
-    $node = new CharLiteralExpr($CHAR.text[1]);
+    $node = CharLiteralExpr::fromString($CHAR.text);
     $node->setSrcLoc($ctx->start->getLine(), $ctx->start->getCharPositionInLine());
 }
 | 'true' {
-    $node = new BoolLiteralExpr(true);
+    $node = BoolLiteralExpr::fromString("true");
     $node->setSrcLoc($ctx->start->getLine(), $ctx->start->getCharPositionInLine());
 }
 | 'false' {
-    $node = new BoolLiteralExpr(false);
+    $node = BoolLiteralExpr::fromString("false");
     $node->setSrcLoc($ctx->start->getLine(), $ctx->start->getCharPositionInLine());
 }
 | '-' expr {

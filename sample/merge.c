@@ -18,7 +18,7 @@ bool read_input() { // Returns true iff successful.
 void merge() {
     i = 0;
     j = 0;
-    while (i < N && j < M) {
+    for (; i < N && j < M ;) {
         if (a[i] <= b[j]) {
             c[i + j] = a[i];
             i = i + 1;

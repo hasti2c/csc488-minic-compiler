@@ -1,7 +1,7 @@
 // This program takes an integer n and determines if it is a power of 2.
 // If n is a power of 2, it prints the power (e.g. if n is 8, 3 is printed).
 // If n is not a power of 2 or n is non-positive, it prints -1.
-# include "minicio.h"
+#include "minicio.h"
 
 bool positive(int x) {
     return x > -x;
@@ -12,16 +12,15 @@ bool even(int x) {
 }
 
 int solve(int x) {
-    int i;
-    i = 0;
-    while (even(x)) {
+    int i, ret;
+    for (i = 0; even(x); i = i + 1) {
         x = x / 2;
-        i = i + 1;
     }
     if (x == 1)
-        return i;
+        ret = i;
     else
-        return -1;
+        ret = -1;
+    return ret;
 }
 
 int main() {

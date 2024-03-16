@@ -31,6 +31,17 @@ namespace minicc {
 
     public:
         //define your member variables and functions
+        bool contains(const std::string &name) {
+            return Table.find(name) != Table.end();
+        }
+
+        VarSymbolEntry get(const std::string &name) {
+            return Table.at(name);
+        }
+
+        void insert(const std::string &name, VarSymbolEntry entry) {
+            Table.insert(std::make_pair(name, VarSymbolEntry(entry)));
+        }
     };
 
     struct FuncSymbolEntry {
@@ -45,6 +56,21 @@ namespace minicc {
         std::map<std::string, FuncSymbolEntry> Table;
     public:
         //define your member variables and functions
+        bool contains(const std::string &name) {
+            return Table.find(name) != Table.end();
+        }
+
+        FuncSymbolEntry get(const std::string &name) {
+            return Table.at(name);
+        }
+
+        void insert(const std::string &name, FuncSymbolEntry entry) {
+            Table.insert(std::make_pair(name, FuncSymbolEntry(entry)));
+        }
+
+        void setHasBody(const std::string &name, bool hasBody) {
+            Table.at(name).HasBody = hasBody;
+        }
     };
 }
 
