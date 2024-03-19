@@ -63,9 +63,7 @@ namespace minicc {
     llvm::Value *IRGenerator::getGEP(std::string name, VarSymbolTable *table, llvm::ConstantInt *idx) {
         llvm::Value *val = table->get(name).LLVMValue;
         Type varType = table->get(name).VarType;
-        llvm::Type *type = toLLVMType(Type(varType.primitiveType()));
         llvm::Type *arrayType = toLLVMType(varType);
-        llvm::Type *pointerType = llvm::PointerType::get(type, 0);
 
         llvm::Value *fst = llvm::ConstantInt::get(llvm::Type::getInt32Ty(*TheContext), 0, false);
         llvm::Value *gep = TheBuilder->CreateGEP(arrayType, val, std::vector<llvm::Value*>{fst, idx});
