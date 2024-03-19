@@ -42,6 +42,16 @@ namespace minicc {
         void insert(const std::string &name, VarSymbolEntry entry) {
             Table.insert(std::make_pair(name, VarSymbolEntry(entry)));
         }
+
+        void update(const std::string &name, VarSymbolEntry entry) {
+            Table.insert_or_assign(name, VarSymbolEntry(entry));
+        }
+
+        void updateWithValue(const std::string &name, llvm::Value *value) {
+            VarSymbolEntry entry = get(name);
+            entry.LLVMValue = value;
+            update(name, entry);
+        }
     };
 
     struct FuncSymbolEntry {

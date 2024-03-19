@@ -20,6 +20,19 @@ namespace minicc {
         std::string ModuleName;
 
         //add your variables and member functions
+        std::map<Expr*, llvm::Value*> ExprValues;
+        std::map<ForStatement*, llvm::BasicBlock*> ForStmtStepBBs;
+        std::map<ForStatement*, llvm::BasicBlock*> ForStmtExitBBs;
+
+        llvm::Type *toLLVMType(Type type);
+
+        llvm::Value *declareVar(Type type, std::string name, bool global);
+
+        llvm::Function *declareFunc(Type retType, std::vector<Type> paramTypes, std::string name);
+
+        llvm::Value *getGEP(std::string name, VarSymbolTable *table, llvm::ConstantInt *index);
+
+        void visitThisNode(ASTNode *node);
 
     public:
         //modify if needed

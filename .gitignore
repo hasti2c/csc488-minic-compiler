@@ -2,3 +2,4 @@ build
 build/*
 tester/build
 tester/build/*
+.vscode
