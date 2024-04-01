@@ -27,9 +27,6 @@ void markdiag(int x, int y, int mark) {
 void search(int k) {
     int i;
     if (k == N) {
-        for (i = 0; i < N; i = i + 1)
-            putint(a[i]);
-        putnewline();
         return;
     }
     for (i = 0; i < N; i = i + 1)

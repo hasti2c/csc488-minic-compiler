@@ -105,10 +105,13 @@ namespace minicc {
 
     void IRGenerator::visitFuncDecl(FuncDeclaration *func) {
         //start your code here
-        std::vector<Type> paramTypes;
-        for (size_t i = 0; i < func->numParameters(); i++) 
-            paramTypes.push_back(func->parameter(i)->type());
-        llvm::Function *funcObj = declareFunc(func->returnType(), paramTypes, func->name());
+        llvm::Function *funcObj = TheModule->getFunction(func->name());
+        if (funcObj == nullptr) {
+            std::vector<Type> paramTypes;
+            for (size_t i = 0; i < func->numParameters(); i++) 
+                paramTypes.push_back(func->parameter(i)->type());
+            funcObj = declareFunc(func->returnType(), paramTypes, func->name());
+        }
 
         if (func->hasBody()) {
             llvm::BasicBlock *bb = llvm::BasicBlock::Create(*TheContext, func->name() + "_entry", funcObj);
@@ -181,9 +184,12 @@ namespace minicc {
 
         // cond BB
         TheBuilder->SetInsertPoint(condBB);
-        visitThisNode(stmt->condExpr());
-        llvm::Value *cond = ExprValues[stmt->condExpr()];
-        TheBuilder->CreateCondBr(cond, bodyBB, exitBB);
+        if (stmt->condExpr() != nullptr) {
+            visitThisNode(stmt->condExpr());
+            llvm::Value *cond = ExprValues[stmt->condExpr()];
+            TheBuilder->CreateCondBr(cond, bodyBB, exitBB);
+        } else
+            TheBuilder->CreateBr(bodyBB);
 
         // body BB
         TheBuilder->SetInsertPoint(bodyBB);
