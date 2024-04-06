@@ -14,6 +14,8 @@ target_link_libraries(minicc PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/libirgen.a ${CM
 
 add_library(alloca2reg MODULE Alloca2Reg.cpp)
 target_compile_options(alloca2reg PRIVATE -fno-rtti)
+add_library(algsimplify MODULE AlgSimplify.cpp)
+target_compile_options(algsimplify PRIVATE -fno-rtti)
 
 # Get proper shared-library behavior (where symbols are not necessarily
 # resolved when the shared library is linked) on OS X.
