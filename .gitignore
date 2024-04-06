@@ -3,3 +3,4 @@ build/*
 tester/build
 tester/build/*
 .vscode
+*/__pycache__/*

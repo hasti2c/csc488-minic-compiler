@@ -8,6 +8,7 @@
 import sys, os
 import argparse
 import subprocess
+import threading
 
 class Base:
     def __init__(self, message, total):
@@ -121,17 +122,23 @@ class Core(Base):
             self.command_run(path)
 
     def exec_test(self, path, datain, getinput=False, timeout=5):
+        timer = None
+        self.actual = None
         if self.verbose > 0:
             print('STARTING PROGRAM: ' + str(path))
         try:
             process = subprocess.Popen(path, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+            timer = threading.Timer(timeout, process.kill)
             if getinput:
                 process.stdin.write(datain)
+            timer.start()
             self.actual = process.communicate()[0]
             process.stdin.close()
         except Exception as e:
             print("ERROR: " + str(e))
             #sys.exit(1)
+            if timer:
+                timer.cancel()
 
     def clean_up (self, files):
         for f in files:

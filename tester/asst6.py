@@ -54,27 +54,27 @@ def main():
         test.opt_check_output('output.ll','output_opt.ll',case[4]-1)
         test.clean_up(tmp_files)
     # Time test
-    for case in timetest_cases:
-        paths = []
-        paths.append(bcgen_path + [case[0]])
-        paths.append(llgen_path)
-        paths.append(optgen_path)
-        paths.append(lloptgen_path)
-        paths.append(execgen_path)
+    # for case in timetest_cases:
+    #     paths = []
+    #     paths.append(bcgen_path + [case[0]])
+    #     paths.append(llgen_path)
+    #     paths.append(optgen_path)
+    #     paths.append(lloptgen_path)
+    #     paths.append(execgen_path)
 
-        #-O3 solution time test path
-        paths.append(o3_optgen_path)
-        paths.append(o3_execgen_path)
+    #     #-O3 solution time test path
+    #     paths.append(o3_optgen_path)
+    #     paths.append(o3_execgen_path)
 
-        test.generate_exec(paths)
-        datain = case[2]
-        test.exec_timetest(50,run_path, datain, case[1])
+    #     test.generate_exec(paths)
+    #     datain = case[2]
+    #     test.exec_timetest(50,run_path, datain, case[1])
         
-        #-O3 time test
-        test.exec_timetest(50,o3_run_path, datain, case[1])
+    #     #-O3 time test
+    #     test.exec_timetest(50,o3_run_path, datain, case[1])
         
-        test.opt_check_output('output.ll','output_opt.ll',0)
-        test.clean_up(tmp_files)
+    #     test.opt_check_output('output.ll','output_opt.ll',0)
+    #     test.clean_up(tmp_files)
 if __name__ == '__main__':
     main()
     

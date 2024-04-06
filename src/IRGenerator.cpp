@@ -338,12 +338,13 @@ namespace minicc {
 
         VarSymbolTable *table = expr->locateDeclaringTableForVar(name);
         Type varType = table->get(name).VarType;
-        llvm::Type *type = toLLVMType(Type(varType.primitiveType()));
+        llvm::Type *type = toLLVMType(varType);
         llvm::Value *val;
 
         if (varref->isArray()) {
             llvm::Value *idx = ExprValues[varref->indexExpr()];
             val = getGEP(name, table, (llvm::ConstantInt*) idx);
+            type = toLLVMType(Type(varType.primitiveType()));
         } else
             val = table->get(name).LLVMValue;
         
